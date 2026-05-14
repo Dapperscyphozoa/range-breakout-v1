@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: range-breakout-v1
+    env: python
+    plan: starter
+    region: oregon
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: python3 server.py
+    healthCheckPath: /health
+    disk:
+      name: engine-state
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: ENGINE_NAME
+        value: range-breakout-v1
+      - key: CLOID_PREFIX
+        value: rngbo_
+      - key: LIVE_TRADING
+        value: "0"
